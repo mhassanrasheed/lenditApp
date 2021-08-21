@@ -8,6 +8,7 @@ import LogIn from './src/screens/registration/logIn';
 import Home from './src/screens/home/home';
 import HomeNavigator from './src/screens/home/homeNavigator';
 import type {Node} from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import {
   SafeAreaView,
   ScrollView,
@@ -28,22 +29,25 @@ export default function App() {
   const Stack = createStackNavigator();
   const [isLogged, setIsLogged] = useState(false);
 
-  useEffect(async () => {
-    try {
-      let user = await AsyncStorage.getItem('user');
-      if (user) {
-        console.log(user);
-        setIsLogged(true);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-    return () => {
-      cleanup;
-    };
-  }, [isLogged]);
+  useEffect(() => {
+    SplashScreen.hide();
+  });
+  // useEffect(async () => {
+  //   try {
+  //     let user = await AsyncStorage.getItem('user');
+  //     if (user) {
+  //       console.log(user);
+  //       setIsLogged(true);
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  //   return () => {
+  //     cleanup;
+  //   };
+  // }, [isLogged]);
 
-  console.log('object', isLogged);
+  // console.log('object', isLogged);
 
   return (
     <NavigationContainer>
