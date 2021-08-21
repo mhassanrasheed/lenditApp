@@ -10,6 +10,7 @@ MERGED from [com.facebook.flipper:flipper-network-plugin:0.75.1] C:\Users\mhass\
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.75.1] C:\Users\mhass\.gradle\caches\transforms-2\files-2.1\13e0ca18817a9e59a8c4a94704ec8c3c\jetified-flipper-fresco-plugin-0.75.1\AndroidManifest.xml:8:1-15:12
 MERGED from [:react-native-async-storage_async-storage] C:\Users\mhass\Programming\lenditApp\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-community_masked-view] C:\Users\mhass\Programming\lenditApp\node_modules\@react-native-community\masked-view\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-config] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-config\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-fetch-blob] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:react-native-gesture-handler] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-gesture-handler\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-image-picker] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-23:12
@@ -173,6 +174,8 @@ MERGED from [:react-native-async-storage_async-storage] C:\Users\mhass\Programmi
 MERGED from [:react-native-async-storage_async-storage] C:\Users\mhass\Programming\lenditApp\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_masked-view] C:\Users\mhass\Programming\lenditApp\node_modules\@react-native-community\masked-view\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_masked-view] C:\Users\mhass\Programming\lenditApp\node_modules\@react-native-community\masked-view\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-config] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-config\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-config] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-config\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-fetch-blob] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-fetch-blob] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-gesture-handler] C:\Users\mhass\Programming\lenditApp\node_modules\react-native-gesture-handler\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41

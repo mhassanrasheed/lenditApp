@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import Alert from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import Config from 'react-native-config';
+
+URL = Config.API_URL;
 /**
  * Allows to upload images to the server
  * @export
@@ -22,7 +25,7 @@ export function ImageUpload(imageSource, imageName, type, id, token) {
   });
 
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'http://192.168.0.21:5000/post/addImage', true);
+  xhr.open('POST', `${URL}/post/addImage`, true);
   xhr.setRequestHeader('content-type', 'multipart/form-data'); //application/x-www-form-urlencoded, multipart/form-data
   xhr.setRequestHeader('Authorization', 'Bearer ' + token);
   xhr.onload = () => {
@@ -44,7 +47,7 @@ export function ImageUpload(imageSource, imageName, type, id, token) {
 export function GetPost(setPosts) {
   console.log('getting post');
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://192.168.0.21:5000/post/', true);
+  xhr.open('GET', `${URL}/post/`, true);
   xhr.onload = () => {
     if (xhr.status == 200) {
       setPosts(JSON.parse(xhr.response));
@@ -81,7 +84,7 @@ export function SubmitPost(
     return console.warn('fields cannot be left empty');
   var xhr = new XMLHttpRequest();
   var params = 'name=' + name + '&description=' + description + '&userId=' + 5;
-  xhr.open('POST', 'http://192.168.0.21:5000/post/addItem', true);
+  xhr.open('POST', `${URL}/post/addItem`, true);
   xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
   xhr.onload = () => {
     if (xhr.status == 200) {
@@ -109,7 +112,7 @@ export function SubmitPost(
 export function Login(email, password, {navigation, route}) {
   var xhr = new XMLHttpRequest();
   var params = 'email=' + email + '&password=' + password;
-  xhr.open('POST', 'http://192.168.0.21:5000/user/login', true);
+  xhr.open('POST', `${URL}/user/login`, true);
   xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
   xhr.onload = async () => {
     try {
@@ -161,7 +164,7 @@ export function Register(
     mobileNumber +
     '&password=' +
     password;
-  xhr.open('POST', 'http://192.168.0.21:5000/user/Register', true);
+  xhr.open('POST', `${URL}/user/Register`, true);
   xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
   xhr.onload = () => {
     if (xhr.status == 200) {
