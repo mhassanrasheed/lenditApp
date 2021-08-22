@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserContext} from './homeNavigator';
 import CustomButton from '../../components/customButton';
 import {GetPost} from '../../../backend/serverRequest';
+import {AuthContext} from '../../components/context';
 
 /**
  * A userfeed which contains all the post added from other users
@@ -25,6 +26,7 @@ import {GetPost} from '../../../backend/serverRequest';
 export default function UserFeed({navigation, route}) {
   const [posts, setPosts] = useState(null);
   const {token} = useContext(UserContext);
+  const {signOut} = useContext(AuthContext);
 
   const Item = ({post}) => (
     <View style={styles.item}>
@@ -62,6 +64,15 @@ export default function UserFeed({navigation, route}) {
         <CustomButton
           text="New Post"
           onPress={() => navigation.navigate('AddPost')}
+          align="center"
+          marginTop={0}
+        />
+        <CustomButton
+          text="Log Out"
+          onPress={() => {
+            AsyncStorage.clear();
+            signOut();
+          }}
           align="center"
           marginTop={0}
         />

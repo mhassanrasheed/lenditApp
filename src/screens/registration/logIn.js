@@ -3,6 +3,7 @@ import {Text, View, TextInput, Button, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomButton from '../../components/customButton';
 import {Login} from '../../../backend/serverRequest';
+import {AuthContext} from '../../components/context';
 
 /**
  * Log in screen which allows a current user to log back in
@@ -16,6 +17,10 @@ export default function LogIn({route, navigation}) {
   const [mobileNumber, setMobileNumber] = useState('123456');
   const [password, setPassword] = useState('hassan');
   const [token, setToken] = useState(null);
+  const {signIn} = React.useContext(AuthContext);
+  const loginHandle = (email, password) => {
+    signIn(email, password);
+  };
 
   return (
     <View style={{padding: 10, margin: 20}}>
@@ -38,7 +43,8 @@ export default function LogIn({route, navigation}) {
       <CustomButton
         text="Log In"
         onPress={() => {
-          Login(email, password, {navigation, route});
+          // Login(email, password, {navigation, route});
+          loginHandle(email, password);
         }}
         align="center"
       />
