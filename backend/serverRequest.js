@@ -15,7 +15,14 @@ URL = Config.API_URL;
  * @param {*} token user's personal token which a server requires to authenticate
  * the user
  */
-export function ImageUpload(imageSource, imageName, type, id, token) {
+export function ImageUpload(
+  imageSource,
+  imageName,
+  type,
+  id,
+  token,
+  setIsUploading,
+) {
   let fd = new FormData();
   fd.append('postID', id);
   fd.append('image', {
@@ -31,6 +38,7 @@ export function ImageUpload(imageSource, imageName, type, id, token) {
   xhr.onload = () => {
     if (xhr.status == 200) {
       console.warn(xhr.response);
+      setIsUploading(false);
     } else {
       console.warn(xhr.response);
     }
@@ -50,6 +58,7 @@ export function GetPost(setPosts) {
   xhr.open('GET', `${URL}/post/`, true);
   xhr.onload = () => {
     if (xhr.status == 200) {
+      console.log('postReceived');
       setPosts(JSON.parse(xhr.response));
     } else {
       console.log(xhr.response);
@@ -79,9 +88,11 @@ export function SubmitPost(
   type,
   userId,
   token,
+  setIsUploading,
 ) {
   if (name?.length === 0 && description?.length === 0)
     return console.warn('fields cannot be left empty');
+  setIsUploading(true);
   var xhr = new XMLHttpRequest();
   var params =
     'name=' + name + '&description=' + description + '&userId=' + userId;
@@ -92,7 +103,14 @@ export function SubmitPost(
       console.warn(xhr.response);
       let responseObj = JSON.parse(xhr.response);
       if (responseObj.message === 'Post Added') {
-        ImageUpload(imageSource, imageName, type, responseObj.postId, token);
+        ImageUpload(
+          imageSource,
+          imageName,
+          type,
+          responseObj.postId,
+          token,
+          setIsUploading,
+        );
       }
     } else {
       console.warn('object', xhr.response);

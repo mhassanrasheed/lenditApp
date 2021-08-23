@@ -15,15 +15,15 @@ import {UserContext} from './homeNavigator';
 import CustomButton from '../../components/customButton';
 import {GetPost} from '../../../backend/serverRequest';
 import {AuthContext} from '../../components/context';
-
+import Footer from '../../components/footer';
 /**
  * A userfeed which contains all the post added from other users
  *
  * @export
- * @param {*} {navigation, route}
+ * @param {*} {navigation}
  * @return {*} view contatining posts from all the other users
  */
-export default function UserFeed({navigation, route}) {
+export default function UserFeed({navigation}) {
   const [posts, setPosts] = useState(null);
   const {token} = useContext(UserContext);
   const {signOut} = useContext(AuthContext);
@@ -38,7 +38,7 @@ export default function UserFeed({navigation, route}) {
             height: 100,
           }}
           source={{
-            uri: `http://192.168.0.21:5000/postImages/${post?.postImages[0]?.image}`,
+            uri: `http://192.168.0.26:5000/postImages/${post?.postImages[0]?.image}`,
           }}
         />
       </View>
@@ -60,23 +60,7 @@ export default function UserFeed({navigation, route}) {
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
-      <View style={styles.footer}>
-        <CustomButton
-          text="New Post"
-          onPress={() => navigation.navigate('AddPost')}
-          align="center"
-          marginTop={0}
-        />
-        <CustomButton
-          text="Log Out"
-          onPress={() => {
-            AsyncStorage.clear();
-            signOut();
-          }}
-          align="center"
-          marginTop={0}
-        />
-      </View>
+      <Footer navigation={navigation} />
     </View>
   );
 }
@@ -98,11 +82,11 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'flex-end',
   },
   userFeed: {
-    height: '76%',
+    height: '75%',
     width: '100%',
   },
   post: {

@@ -62,6 +62,19 @@ export default function App() {
     initialLoginState,
   );
 
+  useEffect(() => {
+    setTimeout(async () => {
+      let userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('token');
+        userId = await AsyncStorage.getItem('userId');
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({type: 'RETRIEVE_TOKEN', token: userToken, userId: userId});
+    }, 2000);
+  }, []);
+
   const authContext = React.useMemo(
     () => ({
       signIn: (email, password) => {
@@ -98,6 +111,7 @@ export default function App() {
         xhr.send(params);
       },
       signOut: () => {
+        AsyncStorage.clear();
         dispatch({type: 'LOGOUT'});
       },
       signUp: (firstName, lastName, email, mobileNumber, password) => {
@@ -125,7 +139,6 @@ export default function App() {
               console.log(xhr.response);
               let responseObj = JSON.parse(xhr.response);
               if (responseObj.message == 'Account Created') {
-                // console.log('response', xhr.response);
                 userToken = responseObj.token;
                 await AsyncStorage.setItem('token', responseObj.token);
                 await AsyncStorage.setItem(
@@ -145,24 +158,9 @@ export default function App() {
         };
         xhr.send(params);
       },
-      token: loginState.token,
-      userId: loginState.userId,
     }),
     [],
   );
-
-  useEffect(() => {
-    setTimeout(async () => {
-      let userToken = null;
-      try {
-        userToken = await AsyncStorage.getItem('token');
-        userId = await AsyncStorage.getItem('userId');
-      } catch (e) {
-        console.log(e);
-      }
-      dispatch({type: 'RETRIEVE_TOKEN', token: userToken, userId: userId});
-    }, 2000);
-  }, []);
 
   if (loginState.isLoading) {
     console.log('object', loginState.userToken);
