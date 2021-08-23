@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserFeed from './userfeed';
 import Home from './home';
 import AddPost from './addPost';
-import Footer from '../../components/footer';
 
 export const UserContext = React.createContext();
 
@@ -14,15 +13,10 @@ function HomeNavigator({userId, token}) {
   const Stack = createStackNavigator();
   return (
     <UserContext.Provider value={{token: token, userId: userId}}>
-      <Stack.Navigator initialRouteName="Footer">
+      <Stack.Navigator initialRouteName="UserFeed">
         <Stack.Screen
           name="UserFeed"
           component={UserFeed}
-          options={{headerShown: true}}
-        />
-        <Stack.Screen
-          name="Footer"
-          component={Footer}
           options={{headerShown: true}}
         />
         <Stack.Screen

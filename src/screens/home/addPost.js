@@ -106,6 +106,11 @@ export default function AddPost({navigation}) {
             userId,
             token,
             setIsUploading,
+            setName,
+            setImageSource,
+            setImageName,
+            setDescription,
+            setType,
           )
         }
         align="center"

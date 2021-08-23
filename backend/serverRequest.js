@@ -22,6 +22,11 @@ export function ImageUpload(
   id,
   token,
   setIsUploading,
+  setName,
+  setImageSource,
+  setImageName,
+  setDescription,
+  setType,
 ) {
   let fd = new FormData();
   fd.append('postID', id);
@@ -39,6 +44,11 @@ export function ImageUpload(
     if (xhr.status == 200) {
       console.warn(xhr.response);
       setIsUploading(false);
+      setName('');
+      setImageSource('');
+      setImageName('');
+      setDescription('');
+      setType('');
     } else {
       console.warn(xhr.response);
     }
@@ -89,6 +99,11 @@ export function SubmitPost(
   userId,
   token,
   setIsUploading,
+  setName,
+  setImageSource,
+  setImageName,
+  setDescription,
+  setType,
 ) {
   if (name?.length === 0 && description?.length === 0)
     return console.warn('fields cannot be left empty');
@@ -110,6 +125,11 @@ export function SubmitPost(
           responseObj.postId,
           token,
           setIsUploading,
+          setName,
+          setImageSource,
+          setImageName,
+          setDescription,
+          setType,
         );
       }
     } else {
