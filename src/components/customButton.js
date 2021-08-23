@@ -8,12 +8,19 @@ import {View, Text, Pressable, StyleSheet} from 'react-native';
  * @param {*} {text, onPress, align, marginTop = 10}
  * @return {*} view containing the button
  */
-export default function CustomButton({text, onPress, align, marginTop = 10}) {
+export default function CustomButton({
+  text,
+  onPress,
+  align,
+  marginTop = 10,
+  disabled = false,
+}) {
   return (
     <View>
       <Pressable
         style={[styles.button, {marginTop: marginTop}]}
-        onPress={onPress}>
+        onPress={onPress}
+        disabled={disabled}>
         <Text style={[styles.buttonText, {textAlign: align}]}>{text}</Text>
       </Pressable>
     </View>

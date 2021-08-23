@@ -3,6 +3,7 @@ import {Camera, Gallery} from '../../components/camera';
 import {ImageUpload, SubmitPost} from '../../../backend/serverRequest';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserContext} from './homeNavigator';
+import Footer from '../../components/footer';
 import {
   View,
   Image,
@@ -22,10 +23,13 @@ export default function AddPost({navigation}) {
   const [imageSource, setImageSource] = useState('');
   const [imageName, setImageName] = useState(null);
   const [type, setType] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const {token} = useContext(UserContext);
+  const {userId} = useContext(UserContext);
+  console.log('token isss', token, 'user', userId);
 
   return (
-    <View>
+    <View style={styles.container}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -91,20 +95,35 @@ export default function AddPost({navigation}) {
       />
       <CustomButton
         text="Submit"
+        disabled={isUploading}
         onPress={() =>
-          SubmitPost(name, description, imageSource, imageName, type, id, token)
+          SubmitPost(
+            name,
+            description,
+            imageSource,
+            imageName,
+            type,
+            userId,
+            token,
+            setIsUploading,
+            setName,
+            setImageSource,
+            setImageName,
+            setDescription,
+            setType,
+          )
         }
         align="center"
       />
-      <CustomButton
-        text="Home"
-        onPress={() => navigation.navigate('UserFeed')}
-        align="center"
-      />
+      <Footer navigation={navigation} />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',

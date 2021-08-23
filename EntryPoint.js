@@ -13,6 +13,7 @@ import HomeNavigator from './src/screens/home/homeNavigator';
  * @return {*} loginscreen|HomeNavigator
  */
 export default function EntryPoint(isLogged) {
+  console.log(isLogged);
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>

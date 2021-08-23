@@ -15,7 +15,19 @@ URL = Config.API_URL;
  * @param {*} token user's personal token which a server requires to authenticate
  * the user
  */
-export function ImageUpload(imageSource, imageName, type, id, token) {
+export function ImageUpload(
+  imageSource,
+  imageName,
+  type,
+  id,
+  token,
+  setIsUploading,
+  setName,
+  setImageSource,
+  setImageName,
+  setDescription,
+  setType,
+) {
   let fd = new FormData();
   fd.append('postID', id);
   fd.append('image', {
@@ -31,6 +43,12 @@ export function ImageUpload(imageSource, imageName, type, id, token) {
   xhr.onload = () => {
     if (xhr.status == 200) {
       console.warn(xhr.response);
+      setIsUploading(false);
+      setName('');
+      setImageSource('');
+      setImageName('');
+      setDescription('');
+      setType('');
     } else {
       console.warn(xhr.response);
     }
@@ -50,6 +68,7 @@ export function GetPost(setPosts) {
   xhr.open('GET', `${URL}/post/`, true);
   xhr.onload = () => {
     if (xhr.status == 200) {
+      console.log('postReceived');
       setPosts(JSON.parse(xhr.response));
     } else {
       console.log(xhr.response);
@@ -77,13 +96,21 @@ export function SubmitPost(
   imageSource,
   imageName,
   type,
-  id,
+  userId,
   token,
+  setIsUploading,
+  setName,
+  setImageSource,
+  setImageName,
+  setDescription,
+  setType,
 ) {
   if (name?.length === 0 && description?.length === 0)
     return console.warn('fields cannot be left empty');
+  setIsUploading(true);
   var xhr = new XMLHttpRequest();
-  var params = 'name=' + name + '&description=' + description + '&userId=' + 5;
+  var params =
+    'name=' + name + '&description=' + description + '&userId=' + userId;
   xhr.open('POST', `${URL}/post/addItem`, true);
   xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
   xhr.onload = () => {
@@ -91,7 +118,19 @@ export function SubmitPost(
       console.warn(xhr.response);
       let responseObj = JSON.parse(xhr.response);
       if (responseObj.message === 'Post Added') {
-        ImageUpload(imageSource, imageName, type, responseObj.postId, token);
+        ImageUpload(
+          imageSource,
+          imageName,
+          type,
+          responseObj.postId,
+          token,
+          setIsUploading,
+          setName,
+          setImageSource,
+          setImageName,
+          setDescription,
+          setType,
+        );
       }
     } else {
       console.warn('object', xhr.response);
