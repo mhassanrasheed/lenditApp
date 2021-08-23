@@ -30,8 +30,7 @@ export default function UserFeed({navigation}) {
 
   const Item = ({post}) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{post.name}</Text>
-      <View style={{flex: 1, alignItems: 'center'}}>
+      <View style={{flex: 1, flexDirection: 'row'}}>
         <Image
           style={{
             width: 100,
@@ -41,8 +40,11 @@ export default function UserFeed({navigation}) {
             uri: `http://192.168.0.26:5000/postImages/${post?.postImages[0]?.image}`,
           }}
         />
+        <View style={{marginLeft: '6%'}}>
+          <Text style={styles.title}>{post.name}</Text>
+          <Text style={styles.description}>{post.description}</Text>
+        </View>
       </View>
-      <Text style={styles.description}>{post.description}</Text>
     </View>
   );
   const renderItem = ({item}) => <Item post={item} />;
@@ -89,15 +91,10 @@ const styles = StyleSheet.create({
     height: '75%',
     width: '100%',
   },
-  post: {
-    height: '60%',
-    width: '100%',
-    borderBottomWidth: 2,
-  },
   item: {
     backgroundColor: 'white',
-    padding: 20,
-    borderBottomWidth: 2,
+    padding: '5%',
+    borderBottomWidth: 0.2,
     flex: 1,
   },
   title: {
