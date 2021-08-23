@@ -16,8 +16,10 @@ export default function LogIn({route, navigation}) {
   const [email, setEmail] = useState('aims@aims.com');
   const [mobileNumber, setMobileNumber] = useState('123456');
   const [password, setPassword] = useState('hassan');
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
   const {signIn} = React.useContext(AuthContext);
+  const token = React.useContext(AuthContext);
+  console.log('token isss', token);
   const loginHandle = (email, password) => {
     signIn(email, password);
   };

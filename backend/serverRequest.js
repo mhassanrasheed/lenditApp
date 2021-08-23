@@ -77,13 +77,14 @@ export function SubmitPost(
   imageSource,
   imageName,
   type,
-  id,
+  userId,
   token,
 ) {
   if (name?.length === 0 && description?.length === 0)
     return console.warn('fields cannot be left empty');
   var xhr = new XMLHttpRequest();
-  var params = 'name=' + name + '&description=' + description + '&userId=' + 5;
+  var params =
+    'name=' + name + '&description=' + description + '&userId=' + userId;
   xhr.open('POST', `${URL}/post/addItem`, true);
   xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
   xhr.onload = () => {

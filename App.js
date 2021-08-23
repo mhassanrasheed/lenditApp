@@ -17,27 +17,28 @@ function loginReducer(prevState, action) {
     case 'RETRIEVE_TOKEN':
       return {
         ...prevState,
+        userId: action.userId,
         userToken: action.token,
         isLoading: true,
       };
     case 'LOGIN':
       return {
         ...prevState,
-        email: action.email,
+        userId: action.userId,
         userToken: action.token,
         isLoading: true,
       };
     case 'LOGOUT':
       return {
         ...prevState,
-        email: null,
+        userId: null,
         userToken: null,
         isLoading: true,
       };
     case 'REGISTER':
       return {
         ...prevState,
-        email: action.email,
+        userId: action.userId,
         userToken: action.token,
         isLoading: true,
       };
@@ -53,7 +54,7 @@ export default function App() {
   const Stack = createStackNavigator();
   const initialLoginState = {
     isLoading: false,
-    email: null,
+    userId: null,
     userToken: null,
   };
   const [loginState, dispatch] = React.useReducer(
@@ -79,10 +80,14 @@ export default function App() {
               userToken = responseObj.token;
               await AsyncStorage.setItem('token', responseObj.token);
               await AsyncStorage.setItem(
-                'user',
-                JSON.stringify(responseObj.User),
+                'userId',
+                JSON.stringify(responseObj.User.id),
               );
-              dispatch({type: 'LOGIN', email: email, token: userToken});
+              dispatch({
+                type: 'LOGIN',
+                userId: responseObj.User.id,
+                token: userToken,
+              });
             } else if (xhr.status == 404) {
               console.log(JSON.parse(xhr.response).message);
             }
@@ -124,10 +129,14 @@ export default function App() {
                 userToken = responseObj.token;
                 await AsyncStorage.setItem('token', responseObj.token);
                 await AsyncStorage.setItem(
-                  'user',
-                  JSON.stringify(responseObj.User),
+                  'userId',
+                  JSON.stringify(responseObj.User.id),
                 );
-                dispatch({type: 'REGISTER', email: email, token: userToken});
+                dispatch({
+                  type: 'REGISTER',
+                  userId: responseObj.User.id,
+                  token: userToken,
+                });
               }
             }
           } catch (error) {
@@ -136,6 +145,8 @@ export default function App() {
         };
         xhr.send(params);
       },
+      token: loginState.token,
+      userId: loginState.userId,
     }),
     [],
   );
@@ -145,10 +156,11 @@ export default function App() {
       let userToken = null;
       try {
         userToken = await AsyncStorage.getItem('token');
+        userId = await AsyncStorage.getItem('userId');
       } catch (e) {
         console.log(e);
       }
-      dispatch({type: 'REGISTER', token: userToken});
+      dispatch({type: 'RETRIEVE_TOKEN', token: userToken, userId: userId});
     }, 2000);
   }, []);
 
@@ -174,7 +186,10 @@ export default function App() {
             />
           </Stack.Navigator>
         ) : (
-          <HomeNavigator />
+          <HomeNavigator
+            userId={loginState.userId}
+            token={loginState.userToken}
+          />
         )}
       </NavigationContainer>
     </AuthContext.Provider>

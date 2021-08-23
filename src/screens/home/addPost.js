@@ -3,6 +3,7 @@ import {Camera, Gallery} from '../../components/camera';
 import {ImageUpload, SubmitPost} from '../../../backend/serverRequest';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserContext} from './homeNavigator';
+
 import {
   View,
   Image,
@@ -23,6 +24,8 @@ export default function AddPost({navigation}) {
   const [imageName, setImageName] = useState(null);
   const [type, setType] = useState(null);
   const {token} = useContext(UserContext);
+  const {userId} = useContext(UserContext);
+  console.log('token isss', token, 'user', userId);
 
   return (
     <View>
@@ -92,7 +95,15 @@ export default function AddPost({navigation}) {
       <CustomButton
         text="Submit"
         onPress={() =>
-          SubmitPost(name, description, imageSource, imageName, type, id, token)
+          SubmitPost(
+            name,
+            description,
+            imageSource,
+            imageName,
+            type,
+            userId,
+            token,
+          )
         }
         align="center"
       />
