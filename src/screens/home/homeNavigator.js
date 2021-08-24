@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserFeed from './userfeed';
 import Home from './home';
 import AddPost from './addPost';
@@ -10,17 +11,14 @@ import Message from '../../components/chat';
 
 export const UserContext = React.createContext();
 
-function HomeNavigator({navigation, route}) {
+function HomeNavigator({userId, token}) {
   const Stack = createStackNavigator();
-  const token = route?.params?.token;
-
   return (
     <UserContext.Provider value={{token: token, userId: userId}}>
       <Stack.Navigator initialRouteName="Chat">
         <Stack.Screen
           name="UserFeed"
           component={UserFeed}
-          initialParams={{token: token}}
           options={{headerShown: true}}
         />
         <Stack.Screen

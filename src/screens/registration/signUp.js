@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, View, TextInput, Button, Alert} from 'react-native';
 import {Register} from '../../../backend/serverRequest';
 import CustomButton from '../../components/customButton';
+import {AuthContext} from '../../components/context';
 
 /**
  * Sign up screen which allows new user to register to the service
@@ -16,6 +17,16 @@ export default function SignUp({navigation}) {
   const [email, setEmail] = useState('aims@aims.com');
   const [mobileNumber, setMobileNumber] = useState('123456');
   const [password, setPassword] = useState('hassan');
+  const {signUp} = React.useContext(AuthContext);
+  const registerHandle = (
+    firstName,
+    lastName,
+    email,
+    mobileNumber,
+    password,
+  ) => {
+    signUp(firstName, lastName, email, mobileNumber, password);
+  };
 
   return (
     <View style={{padding: 10, margin: 20}}>
@@ -60,9 +71,7 @@ export default function SignUp({navigation}) {
       <CustomButton
         text="Sign Up"
         onPress={() => {
-          Register(firstName, lastName, email, mobileNumber, password, {
-            navigation,
-          });
+          registerHandle(firstName, lastName, email, mobileNumber, password);
         }}
         align="center"
       />
