@@ -5,6 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import UserFeed from './userfeed';
 import Home from './home';
 import AddPost from './addPost';
+import Chat from './chats';
+import Message from '../../components/chat';
 
 export const UserContext = React.createContext();
 
@@ -13,8 +15,8 @@ function HomeNavigator({navigation, route}) {
   const token = route?.params?.token;
 
   return (
-    <UserContext.Provider value={{token: token}}>
-      <Stack.Navigator initialRouteName="AddPost">
+    <UserContext.Provider value={{token: token, userId: userId}}>
+      <Stack.Navigator initialRouteName="Chat">
         <Stack.Screen
           name="UserFeed"
           component={UserFeed}
@@ -30,6 +32,16 @@ function HomeNavigator({navigation, route}) {
           name="Home"
           component={Home}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="Message"
+          component={Message}
+          options={{headerShown: true}}
         />
       </Stack.Navigator>
     </UserContext.Provider>

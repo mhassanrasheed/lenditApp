@@ -177,3 +177,22 @@ export function Register(
   };
   xhr.send(params);
 }
+
+export function sendMessage(userId, receiverId, message) {
+  let xhr = new XMLHttpRequest();
+  console.warn('sending...');
+  var params =
+    'userId=' + userId + '&receiverId=' + receiverId + '&message=' + message;
+  xhr.open('POST', `${URL}/chat/addMessage`, true);
+  xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+  xhr.onload = () => {
+    if (xhr.status == 200) {
+      console.log(xhr.response);
+      // if (xhr.response == 'Account Created') {
+      //   console.warn(xhr.response);
+      //   navigation.navigate('Home');
+      // }
+    }
+  };
+  xhr.send(params);
+}
