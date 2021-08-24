@@ -21,6 +21,12 @@ export default function Footer({navigation}) {
         marginTop={0}
       />
       <CustomButton
+        text="Chat"
+        onPress={() => navigation.navigate('Chat')}
+        align="center"
+        marginTop={0}
+      />
+      <CustomButton
         text="Log Out"
         onPress={() => {
           signOut();
